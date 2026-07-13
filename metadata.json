@@ -1,0 +1,6 @@
+{
+  "name": "宇宙草台班子大质检",
+  "description": "基于十维复合动态矩阵判定算法的宇宙底层草台班子大质检测试小程序",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
