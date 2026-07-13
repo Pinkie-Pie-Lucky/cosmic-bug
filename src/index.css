@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-cosmic-bg: #0a0a1a;
+  --color-neon-purple: #b026ff;
+  --color-neon-cyan: #43dae2;
+  --color-warning-yellow: #c5cf00;
+  --color-glass-bg: rgba(18, 18, 34, 0.65);
+}
+
+/* Custom visual system for Cosmic Glitch */
+@layer utilities {
+  .crt-scanlines {
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%, 
+      rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+      90deg, 
+      rgba(255, 0, 0, 0.06), 
+      rgba(0, 255, 0, 0.02), 
+      rgba(0, 0, 255, 0.06)
+    );
+    background-size: 100% 4px, 6px 100%;
+  }
+
+  .glitch-shadow-cyan-purple {
+    text-shadow: -2px 0 0 #2dccd4, 2px 0 0 #b026ff;
+  }
+
+  .glitch-shadow-yellow-purple {
+    text-shadow: -1.5px 0 0 #c5cf00, 1.5px 0 0 #b026ff;
+  }
+
+  .glass-container {
+    background-color: rgba(18, 18, 34, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(155, 139, 161, 0.15);
+  }
+
+  .glass-container-glow-cyan {
+    background-color: rgba(18, 18, 34, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(67, 218, 226, 0.35);
+    box-shadow: 0 0 15px rgba(67, 218, 226, 0.12);
+  }
+
+  .glass-container-glow-purple {
+    background-color: rgba(18, 18, 34, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(176, 38, 255, 0.35);
+    box-shadow: 0 0 15px rgba(176, 38, 255, 0.12);
+  }
+
+  .glass-container-glow-yellow {
+    background-color: rgba(18, 18, 34, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(197, 207, 0, 0.35);
+    box-shadow: 0 0 15px rgba(197, 207, 0, 0.12);
+  }
+
+  /* Custom glow transitions */
+  .glow-cyan-btn {
+    box-shadow: 0 0 12px rgba(67, 218, 226, 0.3);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glow-cyan-btn:hover {
+    box-shadow: 0 0 25px rgba(197, 207, 0, 0.6);
+    background-color: #c5cf00;
+    color: #000000;
+  }
+
+  .glow-purple-btn {
+    box-shadow: 0 0 12px rgba(176, 38, 255, 0.3);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glow-purple-btn:hover {
+    box-shadow: 0 0 25px rgba(176, 38, 255, 0.6);
+    background-color: rgba(176, 38, 255, 0.15);
+  }
+
+  /* Clip-path for angular corners */
+  .clip-angular-sm {
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .clip-angular-md {
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+
+  .clip-angular-badge {
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  }
+}
+
+body {
+  background-color: #05050e;
+  color: #e3e0f8;
+  overflow-x: hidden;
+  font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom scrollbar for cyberpunk look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #05050e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e1e2f;
+  border: 1px solid rgba(155, 139, 161, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #43dae2;
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 4s infinite alternate;
+}
+
+@keyframes scanline-anim {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+.crt-animation {
+  position: relative;
+}
+.crt-animation::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 6px, 6px 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
