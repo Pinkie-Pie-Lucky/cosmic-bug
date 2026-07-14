@@ -67,13 +67,13 @@ export default function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
       <div className="w-full flex items-center justify-between border-b border-purple-900/40 pb-4 z-10">
         <div className="flex items-center gap-2">
           <Terminal className="w-5 h-5 text-neon-cyan animate-pulse" />
-          <span className="font-mono text-xs text-neon-cyan tracking-wider uppercase">
-            SYSTEM_LOCKED // AUTH_REQUIRED
+          <span className="font-mono text-xs text-neon-cyan tracking-wider">
+            系统已锁定 // 需要授权
           </span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-          <span className="font-mono text-[10px] text-red-400">ACCESS_DENIED</span>
+          <span className="font-mono text-[10px] text-red-400">访问受限</span>
         </div>
       </div>
 

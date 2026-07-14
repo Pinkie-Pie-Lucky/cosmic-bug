@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Terminal, ShieldAlert } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -6,59 +6,15 @@ interface StartScreenProps {
   onStart: () => void;
 }
 
-const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?/~`!あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-
-function randomMatrixChar(): string {
-  return MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)];
-}
-
 export default function StartScreen({ onStart }: StartScreenProps) {
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [matrixColumns, setMatrixColumns] = useState<string[][]>([]);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleStart = () => {
-    setIsTransitioning(true);
-  };
-
-  useEffect(() => {
-    if (!isTransitioning) return;
-
-    const cols = 40;
-    const rows = 30;
-    const initial: string[][] = [];
-    for (let c = 0; c < cols; c++) {
-      const col: string[] = [];
-      for (let r = 0; r < rows; r++) {
-        col.push(randomMatrixChar());
-      }
-      initial.push(col);
-    }
-    setMatrixColumns(initial);
-
-    timerRef.current = setInterval(() => {
-      setMatrixColumns(prev => {
-        const next = prev.map(col => [...col]);
-        const updateCount = Math.floor(cols * 0.4);
-        for (let i = 0; i < updateCount; i++) {
-          const c = Math.floor(Math.random() * cols);
-          const r = Math.floor(Math.random() * rows);
-          next[c][r] = randomMatrixChar();
-        }
-        return next;
-      });
-    }, 60);
-
-    const timeout = setTimeout(() => {
-      if (timerRef.current) clearInterval(timerRef.current);
+    setShowPopup(true);
+    setTimeout(() => {
       onStart();
-    }, 2000);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      clearTimeout(timeout);
-    };
-  }, [isTransitioning, onStart]);
+    }, 1200);
+  };
 
   return (
     <div className="w-full min-h-screen flex flex-col justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
@@ -68,13 +24,13 @@ export default function StartScreen({ onStart }: StartScreenProps) {
       <div className="w-full flex items-center justify-between border-b border-purple-900/40 pb-4 z-10" id="top-nav-bar">
         <div className="flex items-center gap-2">
           <Terminal className="w-5 h-5 text-neon-cyan animate-pulse" />
-          <span className="font-mono text-xs text-neon-cyan tracking-wider uppercase">
-            SYSTEM_STATUS: ANOMALY_DETECTED
+          <span className="font-mono text-xs text-neon-cyan tracking-wider">
+            系统状态：异常已检测
           </span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-ping" />
-          <span className="font-mono text-[10px] text-outline text-gray-400">CORE_SYNC_OK</span>
+          <span className="font-mono text-[10px] text-gray-400">核心同步正常</span>
         </div>
       </div>
 
@@ -122,7 +78,6 @@ export default function StartScreen({ onStart }: StartScreenProps) {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="w-full glass-container border border-purple-500/20 p-6 md:p-8 relative"
         >
-          {/* Terminal Controls bar (Red, Yellow, Green Dots) */}
           <div className="absolute top-4 left-4 flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-red-500/80" />
             <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
@@ -160,37 +115,22 @@ export default function StartScreen({ onStart }: StartScreenProps) {
         >
           [ 接受草台大质检，开始注入乱码 ]
         </motion.button>
-        <span className="font-mono text-[10px] text-gray-500 tracking-wider">
-          COSMIC_OS CORE V2.1 // DECODE_LIMIT: TRUE
-        </span>
       </div>
 
-      {/* Matrix Rain Transition Overlay */}
-      {isTransitioning && (
-        <div className="fixed inset-0 z-50 bg-black overflow-hidden">
-          <div 
-            className="absolute inset-0 flex"
-            style={{ fontFamily: '"Space Mono", monospace', fontSize: '14px', lineHeight: '1.2' }}
+      {/* Popup Overlay */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="glass-container border border-neon-cyan/40 p-8 text-center space-y-4 max-w-sm mx-4"
           >
-            {matrixColumns.map((col, ci) => (
-              <div key={ci} className="flex flex-col whitespace-pre" style={{ width: `${100 / matrixColumns.length}%` }}>
-                {col.map((char, ri) => (
-                  <span
-                    key={ri}
-                    className={Math.random() > 0.5 ? 'text-green-500' : 'text-red-500'}
-                    style={{ 
-                      opacity: Math.random() * 0.6 + 0.4,
-                      textShadow: Math.random() > 0.7 
-                        ? `0 0 8px ${Math.random() > 0.5 ? '#22c55e' : '#ef4444'}` 
-                        : 'none'
-                    }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+            <div className="w-12 h-12 mx-auto border-2 border-neon-cyan border-t-transparent rounded-full animate-spin" />
+            <p className="font-mono text-sm text-neon-cyan font-bold tracking-wider">
+              质检通过，正在强行进入漏洞现场...
+            </p>
+          </motion.div>
         </div>
       )}
 

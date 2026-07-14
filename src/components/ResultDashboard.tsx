@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Terminal, 
   Sparkles,
   RotateCcw
 } from 'lucide-react';
@@ -52,19 +51,7 @@ export default function ResultDashboard({
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.08),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(67,218,226,0.06),transparent_70%)] pointer-events-none" />
 
-      <div className="max-w-xl mx-auto flex items-center justify-between border-b border-gray-800 pb-4 mb-6 z-10 relative">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-neon-purple" />
-          <span className="font-mono text-[11px] text-neon-purple tracking-wider uppercase">
-            COSMIC_OS // PROTOCOL_BYPASS
-          </span>
-        </div>
-        <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider">
-          © 2024 COSMIC_OS // PROTOCOL_BYPASS
-        </div>
-      </div>
-
-      <div className="max-w-xl mx-auto space-y-8 z-10 relative" id="result-scrollable-container">
+      <div className="max-w-xl mx-auto space-y-8 z-10 relative pt-4" id="result-scrollable-container">
         
         {/* TOP COMPONENT: Big Head Title Block */}
         <div className="text-center space-y-2 mt-4">
@@ -369,7 +356,7 @@ export default function ResultDashboard({
             style={{ borderRadius: '0px' }}
           >
             <RotateCcw className="w-4 h-4" />
-            <span>[ REBOOT_TEST / 重新质检 ]</span>
+            <span>[ 重新质检 ]</span>
           </button>
         </div>
 
