@@ -361,15 +361,6 @@ export default function ResultDashboard({
         </div>
 
       </div>
-
-      {/* Copyright Footer */}
-      <div className="w-full max-w-xl mx-auto z-10 text-center mt-8">
-        <p className="font-mono text-[9px] text-gray-600 leading-relaxed">
-          本测试为原创作品，已申请数字版权保护。<br/>
-          未经授权不得复制、转售或用于商业用途。侵权必究。<br/>
-          *本测试为趣味娱乐测试，内容纯属虚构，仅供娱乐。
-        </p>
-      </div>
     </div>
   );
 }
