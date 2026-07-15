@@ -1,20 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+家人们，世界是个巨大的草台程序，这件事终于藏不住了。我最近偷偷潜入后台数据库，给全宇宙的非标人类搞了一场【底层逻辑大质检】。别再假装自己是个按部就班的正常人类了！根据我的大面积数据抽查，你在这世界上活得极其可疑——你既没有安分守己地当一颗老实螺丝钉，也没有彻底把系统卡死，你纯粹就是一行来路不明的乱码，在千疮百孔的规则里到处乱窜！我准备了 12 道极限情景数据扫描，连夜排查你的【覆写脚本】和【异常寻址】行为。测完直接拉网通报你的全维宇宙异常人格档案！看看你到底是：🔒 死守红线的 【系统死锁保护机制】🛠️ 卑微加班填坑的 【日常防塌房补丁包】🍿 游离安全区冷眼看戏的 【只读孤立线程】🪐 还是直接把算力干到爆表的终极神明 【终极溢出源】？⚠️ 质检提示：别试图对物理引擎撒谎，你的入场券已被锁定。输入授权码，立刻认领你的系统故障！
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/1e137057-381f-4e7c-ac87-4280550f54d8
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+授权码：zia55
