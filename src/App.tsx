@@ -42,7 +42,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-cosmic-bg text-gray-100 select-none">
+    <div className="min-h-dvh bg-cosmic-bg text-gray-100 select-none">
       {screen === 'auth' && (
         <AuthScreen onAuthSuccess={handleAuthSuccess} />
       )}

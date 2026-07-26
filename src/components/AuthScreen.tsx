@@ -59,7 +59,7 @@ export default function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
+    <div className="w-full min-h-dvh flex flex-col items-center justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.12),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(67,218,226,0.08),transparent_70%)] pointer-events-none" />
 
@@ -88,7 +88,7 @@ export default function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
 
         {/* Title */}
         <h1 className="text-center text-2xl md:text-3xl font-extrabold tracking-tight mb-4">
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple font-black">
+          <span className="block gradient-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple font-black">
             宇宙草台班子大质检
           </span>
         </h1>

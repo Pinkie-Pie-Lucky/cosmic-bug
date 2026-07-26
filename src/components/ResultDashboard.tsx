@@ -47,7 +47,7 @@ export default function ResultDashboard({
   };
 
   return (
-    <div className="w-full min-h-screen bg-cosmic-bg text-gray-100 p-4 md:p-8 relative overflow-hidden crt-scanlines pb-8">
+    <div className="w-full min-h-dvh bg-cosmic-bg text-gray-100 p-4 md:p-8 relative overflow-hidden crt-scanlines pb-8">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.08),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(67,218,226,0.06),transparent_70%)] pointer-events-none" />
 
@@ -57,9 +57,9 @@ export default function ResultDashboard({
         <div className="text-center space-y-2 mt-4">
           <span className="inline-flex items-center gap-1 font-mono text-xs text-neon-cyan uppercase tracking-widest bg-cyan-950/20 px-3 py-1 border border-neon-cyan/20">
             <Sparkles className="w-3.5 h-3.5 text-neon-cyan animate-spin" style={{ animationDuration: '6s' }} />
-            草台班子质检结果
+            宇宙草台班子质检结果
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-white to-neon-cyan uppercase glitch-shadow-cyan-purple py-2">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight gradient-text bg-gradient-to-r from-neon-purple via-white to-neon-cyan uppercase glitch-shadow-cyan-purple py-2">
             {personality.id}
           </h1>
           <p className="text-xl md:text-2xl font-black text-warning-yellow tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
@@ -75,7 +75,7 @@ export default function ResultDashboard({
           <div className="font-mono text-[9px] text-neon-purple uppercase tracking-widest mb-1.5">
             ● BUG核心底层协议
           </div>
-          <p className="text-base md:text-lg font-bold font-sans italic text-transparent bg-clip-text bg-gradient-to-r from-white via-neon-cyan to-white select-none">
+          <p className="text-base md:text-lg font-bold font-sans italic gradient-text bg-gradient-to-r from-white via-neon-cyan to-white select-none">
             {personality.coreProtocol}
           </p>
         </div>
@@ -124,7 +124,7 @@ export default function ResultDashboard({
         <div className="glass-container border border-gray-800/60 p-6 relative">
           <div className="absolute top-0 left-0 w-3 h-1.5 bg-neon-purple" />
           <h3 className="font-mono text-xs text-neon-cyan uppercase tracking-widest mb-4">
-            人格描述
+            异常描述
           </h3>
           <div className="space-y-4 text-xs leading-relaxed text-gray-300 font-mono">
             {personality.description.map((paragraph, idx) => (
@@ -138,7 +138,7 @@ export default function ResultDashboard({
         {/* COMPONENT 4: Radar Graph (Custom Polygon) */}
         <div className="glass-container border border-gray-800/80 p-6 flex flex-col items-center justify-center space-y-4">
           <div className="w-full text-center border-b border-gray-800/60 pb-3">
-            <h3 className="font-sans text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple uppercase tracking-widest">
+            <h3 className="font-sans text-sm font-bold gradient-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple uppercase tracking-widest">
               六维异常分析
             </h3>
             <p className="font-mono text-[10px] text-gray-500 mt-1 uppercase">

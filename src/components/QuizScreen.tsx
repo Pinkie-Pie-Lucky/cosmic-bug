@@ -41,7 +41,7 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
   const currentSelection = answers[currentIndex];
 
   return (
-    <div className="w-full min-h-screen bg-cosmic-bg text-gray-100 flex flex-col justify-between p-4 md:p-6 relative overflow-hidden crt-scanlines">
+    <div className="w-full min-h-dvh bg-cosmic-bg text-gray-100 flex flex-col justify-between p-4 md:p-6 relative overflow-hidden crt-scanlines">
       {/* Decorative Top Ambient glow */}
       <div className="absolute top-0 inset-x-0 h-40 bg-[radial-gradient(ellipse_at_top,rgba(67,218,226,0.1),transparent_60%)] pointer-events-none" />
 
@@ -102,7 +102,7 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
 
             {/* Question Card */}
             <div className="glass-container border border-purple-500/10 p-5 md:p-6 relative">
-              <h2 className="text-lg md:text-xl font-bold leading-snug font-sans text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-100 to-neon-cyan drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <h2 className="text-lg md:text-xl font-bold leading-snug font-sans gradient-text bg-gradient-to-br from-white via-gray-100 to-neon-cyan drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 {String(currentIndex + 1).padStart(2, '0')}. {currentQuestion.title}
               </h2>
             </div>

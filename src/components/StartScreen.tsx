@@ -17,7 +17,7 @@ export default function StartScreen({ onStart }: StartScreenProps) {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
+    <div className="w-full min-h-dvh flex flex-col justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.12),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(67,218,226,0.08),transparent_70%)] pointer-events-none" />
       
@@ -63,10 +63,10 @@ export default function StartScreen({ onStart }: StartScreenProps) {
           <span className="block text-xl md:text-2xl text-neon-cyan mb-2 font-semibold">
             草台班子大质检：
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple glitch-shadow-cyan-purple font-black animate-glitch-shake">
+          <span className="block gradient-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple glitch-shadow-cyan-purple font-black animate-glitch-shake">
             你这行乱码究竟卡出了
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-white to-warning-yellow glitch-shadow-yellow-purple font-black mt-2 animate-glitch-shake">
+          <span className="block gradient-text bg-gradient-to-r from-neon-purple via-white to-warning-yellow glitch-shadow-yellow-purple font-black mt-2 animate-glitch-shake">
             什么系统异常？
           </span>
         </motion.h1>

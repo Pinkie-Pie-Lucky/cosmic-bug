@@ -34,6 +34,13 @@
     text-shadow: -1.5px 0 0 #c5cf00, 1.5px 0 0 #b026ff;
   }
 
+  .gradient-text {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
   .glass-container {
     background-color: rgba(18, 18, 34, 0.7);
     backdrop-filter: blur(16px);
