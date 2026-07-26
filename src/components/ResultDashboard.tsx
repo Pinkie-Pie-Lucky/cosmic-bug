@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  ShieldCheck, 
-  Terminal, 
-  Cpu, 
-  AlertOctagon, 
-  Sparkles, 
-  CornerDownRight, 
-  RotateCcw, 
-  Share2, 
-  Home,
-  CheckCircle,
-  HelpCircle
+  Sparkles,
+  RotateCcw
 } from 'lucide-react';
 import { Personality, DIMENSIONS_INFO, TAGS_INFO } from '../data/quizData';
 import RadarChart from './RadarChart';
@@ -33,14 +24,10 @@ export default function ResultDashboard({
   userTags,
   triggerTagCorrection,
   topCandidates,
-  onRestart,
-  onGoHome
+  onRestart
 }: ResultDashboardProps) {
   const [activeTab, setActiveTab] = useState<'anomaly' | 'vulnerability' | 'log'>('anomaly');
-  const [showShareModal, setShowShareModal] = useState(false);
-  const [copied, setCopied] = useState(false);
 
-  // Helper to retrieve ranges for standard dimensions
   const getDimensionRangeInfo = (key: 'R' | 'A' | 'E' | 'I' | 'C' | 'U', value: number) => {
     const info = DIMENSIONS_INFO[key];
     const range = info.ranges.find(r => value >= r.min && value <= r.max) || info.ranges[0];
@@ -50,7 +37,6 @@ export default function ResultDashboard({
     };
   };
 
-  // Helper to retrieve ranges for behavioral tags
   const getTagRangeInfo = (key: 'EX' | 'MO' | 'OB' | 'ST', value: number) => {
     const info = TAGS_INFO[key];
     const range = info.ranges.find(r => value >= r.min && value <= r.max) || info.ranges[0];
@@ -60,33 +46,12 @@ export default function ResultDashboard({
     };
   };
 
-  const handleCopyShareText = () => {
-    const text = `🌌 我的宇宙异常质检报告已经解密出炉！\n👉 我被诊断为: [ ${personality.name} ] (${personality.systemClass})\nBUG核心底层协议: ${personality.coreProtocol}\n${personality.shareLine}\n\n快来测测你卡出了什么宇宙异常！`;
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div className="w-full min-h-screen bg-cosmic-bg text-gray-100 p-4 md:p-8 relative overflow-hidden crt-scanlines pb-24">
-      {/* Immersive background glow elements */}
+    <div className="w-full min-h-screen bg-cosmic-bg text-gray-100 p-4 md:p-8 relative overflow-hidden crt-scanlines pb-8">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.08),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(67,218,226,0.06),transparent_70%)] pointer-events-none" />
 
-      {/* Top Bar Navigation */}
-      <div className="max-w-xl mx-auto flex items-center justify-between border-b border-gray-800 pb-4 mb-6 z-10 relative">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-neon-purple" />
-          <span className="font-mono text-[11px] text-neon-purple tracking-wider uppercase">
-            COSMIC_OS // PROTOCOL_BYPASS
-          </span>
-        </div>
-        <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider">
-          © 2024 COSMIC_OS // PROTOCOL_BYPASS
-        </div>
-      </div>
-
-      <div className="max-w-xl mx-auto space-y-8 z-10 relative" id="result-scrollable-container">
+      <div className="max-w-xl mx-auto space-y-8 z-10 relative pt-4" id="result-scrollable-container">
         
         {/* TOP COMPONENT: Big Head Title Block */}
         <div className="text-center space-y-2 mt-4">
@@ -104,7 +69,6 @@ export default function ResultDashboard({
 
         {/* COMPONENT 1: Core Bottom Protocol Quote Card */}
         <div className="glass-container-glow-purple p-6 text-center relative clip-angular-sm">
-          {/* Cyan Corner Accents */}
           <div className="absolute top-0 right-0 w-2 h-2 bg-neon-cyan" />
           <div className="absolute bottom-0 left-0 w-2 h-2 bg-neon-cyan" />
           
@@ -157,12 +121,12 @@ export default function ResultDashboard({
         </div>
 
         {/* COMPONENT 3: Narrative Character Human Descriptives */}
-        <div className="glass-container border border-purple-500/10 p-6 relative">
+        <div className="glass-container border border-gray-800/60 p-6 relative">
           <div className="absolute top-0 left-0 w-3 h-1.5 bg-neon-purple" />
-          <h3 className="font-mono text-xs text-gray-400 uppercase tracking-widest mb-4">
+          <h3 className="font-mono text-xs text-neon-cyan uppercase tracking-widest mb-4">
             人格描述
           </h3>
-          <div className="space-y-4 text-sm leading-relaxed text-gray-200">
+          <div className="space-y-4 text-xs leading-relaxed text-gray-300 font-mono">
             {personality.description.map((paragraph, idx) => (
               <p key={idx} className="border-l-2 border-neon-purple/40 pl-4">
                 {paragraph}
@@ -187,12 +151,6 @@ export default function ResultDashboard({
 
         {/* COMPONENT 5: Dimension Scale Range Details (Progress Bars) */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-gray-800 pb-2">
-            <h3 className="font-mono text-xs text-neon-cyan uppercase tracking-widest">
-              自我稳定性 {(userScores.I).toFixed(0)}
-            </h3>
-            <span className="font-mono text-[10px] text-gray-500 uppercase">DIMENSION_METRICS</span>
-          </div>
 
           <div className="space-y-3.5">
             {(Object.keys(DIMENSIONS_INFO) as Array<'R' | 'A' | 'E' | 'I' | 'C' | 'U'>).map((key) => {
@@ -200,7 +158,6 @@ export default function ResultDashboard({
               const score = userScores[key];
               const range = getDimensionRangeInfo(key, score);
 
-              // Set color gradient depending on dimension key
               let barColor = 'from-neon-cyan to-neon-purple';
               if (key === 'R' || key === 'I') barColor = 'from-neon-cyan to-blue-500';
               if (key === 'C' || key === 'A') barColor = 'from-neon-purple to-warning-yellow';
@@ -212,7 +169,6 @@ export default function ResultDashboard({
                     <span className="font-mono font-bold text-neon-cyan">{Math.round(score)} / 100</span>
                   </div>
 
-                  {/* Progress Bar with Flickering Glitch Box at End */}
                   <div className="w-full h-2 bg-gray-950 rounded-full overflow-hidden relative">
                     <div 
                       className={`h-full bg-gradient-to-r ${barColor}`}
@@ -226,7 +182,6 @@ export default function ResultDashboard({
                     )}
                   </div>
 
-                  {/* Dynamic Threshold Range Interpretation Text */}
                   <div className="space-y-1 pt-1 font-sans text-xs">
                     <span className="text-warning-yellow font-bold block text-[11px] tracking-wide">
                       {range.label}
@@ -242,40 +197,50 @@ export default function ResultDashboard({
         </div>
 
         {/* COMPONENT 6: Behavior Tags Analysis Section */}
-        <div className="glass-container border border-gray-800/80 p-5 space-y-4">
+        <div className="space-y-4">
           <div className="border-b border-gray-800 pb-2">
             <h3 className="font-mono text-xs text-neon-cyan uppercase tracking-widest">
               行为模式标签
             </h3>
-            <p className="font-mono text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">
-              Trait-Based Action Paradigm
-            </p>
           </div>
-
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {(Object.keys(TAGS_INFO) as Array<'EX' | 'MO' | 'OB' | 'ST'>).map((key) => {
               const info = TAGS_INFO[key];
               const score = userTags[key];
               const range = getTagRangeInfo(key, score);
 
+              let barColor = 'from-neon-purple to-warning-yellow';
+              if (key === 'EX') barColor = 'from-neon-cyan to-neon-purple';
+              if (key === 'OB') barColor = 'from-warning-yellow to-neon-cyan';
+              if (key === 'ST') barColor = 'from-neon-cyan to-blue-500';
+
               return (
-                <div key={key} className="space-y-1 text-xs">
-                  <div className="flex justify-between items-center text-[11px] font-mono">
-                    <span className="font-bold text-neon-cyan uppercase">{info.name}</span>
-                    <span className="text-gray-400 font-bold">{score.toFixed(1)}%</span>
+                <div key={key} className="glass-container border border-gray-800/60 p-4 space-y-2">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-bold text-gray-200">{info.name}</span>
+                    <span className="font-mono font-bold text-neon-cyan">{score.toFixed(1)}%</span>
                   </div>
-                  
-                  {/* Miniature progress track */}
-                  <div className="w-full h-1 bg-gray-950 relative">
+
+                  <div className="w-full h-2 bg-gray-950 rounded-full overflow-hidden relative">
                     <div 
-                      className="h-full bg-neon-cyan"
+                      className={`h-full bg-gradient-to-r ${barColor}`}
                       style={{ width: `${score}%` }}
                     />
+                    {score > 10 && (
+                      <div 
+                        className="absolute top-0 bottom-0 w-1.5 bg-white animate-flicker"
+                        style={{ left: `calc(${score}% - 4px)` }}
+                      />
+                    )}
                   </div>
-                  
-                  <div className="pt-0.5 space-y-0.5 font-mono text-[10px] text-gray-500 leading-normal">
-                    <span className="text-gray-300 block font-semibold">{range.label}</span>
-                    <p className="leading-relaxed">{range.desc}</p>
+
+                  <div className="space-y-1 pt-1 font-sans text-xs">
+                    <span className="text-warning-yellow font-bold block text-[11px] tracking-wide">
+                      {range.label}
+                    </span>
+                    <p className="text-gray-400 text-[11px] leading-relaxed">
+                      {range.desc}
+                    </p>
                   </div>
                 </div>
               );
@@ -378,110 +343,23 @@ export default function ResultDashboard({
             ✉ 宇宙彩蛋
           </span>
           <p className="italic font-sans text-gray-300">
-            “{personality.easterEgg}”
+            " {personality.easterEgg} "
           </p>
           <div className="text-right font-mono text-[10px] text-gray-500 mt-2">— 宇宙管理员的备注</div>
         </div>
 
-        {/* INTERACTIVE ACTIONS BOX: Actions Bar */}
-        <div className="w-full flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-800/60 z-10 relative">
+        {/* INTERACTIVE ACTIONS: Re-test */}
+        <div className="w-full flex gap-3 pt-4 border-t border-gray-800/60 z-10 relative">
           <button
             onClick={onRestart}
             className="flex-1 py-3.5 bg-transparent border border-neon-purple hover:bg-neon-purple/10 text-neon-purple font-mono font-bold text-xs flex items-center justify-center gap-2 cursor-pointer select-none active:bg-neon-purple/20"
             style={{ borderRadius: '0px' }}
           >
             <RotateCcw className="w-4 h-4" />
-            <span>[ REBOOT_TEST / 重新质检 ]</span>
-          </button>
-
-          <button
-            onClick={() => setShowShareModal(true)}
-            className="flex-1 py-3.5 bg-neon-cyan text-black font-mono font-bold text-xs flex items-center justify-center gap-2 cursor-pointer select-none active:bg-warning-yellow hover:bg-warning-yellow"
-            style={{ borderRadius: '0px' }}
-          >
-            <Share2 className="w-4 h-4" />
-            <span>[ SHARE_ANOMALY / 导出异常 ]</span>
-          </button>
-
-          <button
-            onClick={onGoHome}
-            className="py-3.5 px-4 bg-gray-900 border border-gray-800 text-gray-400 hover:text-white font-mono text-xs flex items-center justify-center gap-2 cursor-pointer select-none active:bg-gray-800"
-            style={{ borderRadius: '0px' }}
-          >
-            <Home className="w-4 h-4" />
+            <span>[ 重新质检 ]</span>
           </button>
         </div>
 
-      </div>
-
-      {/* Share / Export Modal Overlay */}
-      {showShareModal && (
-        <div className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="w-full max-w-sm glass-container border border-neon-purple/40 p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-gray-800 pb-2">
-              <span className="font-mono text-xs text-neon-purple uppercase font-bold">EXPORT_COSMIC_DUMP</span>
-              <button 
-                onClick={() => setShowShareModal(false)}
-                className="font-mono text-xs text-gray-500 hover:text-red-400 cursor-pointer p-1"
-              >
-                [ CLOSE ]
-              </button>
-            </div>
-
-            <div className="space-y-2 text-xs">
-              <p className="font-mono text-neon-cyan font-bold uppercase text-[10px]">👉 异常卡一句话描述：</p>
-              <div className="bg-gray-950 p-4 border border-gray-800 rounded-none font-sans text-gray-300 leading-relaxed italic">
-                {personality.shareLine}
-              </div>
-            </div>
-
-            <div className="bg-gray-950/50 p-4 border border-gray-900 rounded-none text-[11px] font-mono text-gray-400 space-y-1">
-              <span className="text-neon-purple font-semibold block text-[10px] mb-1">📋 导出的分享文案剪贴板：</span>
-              <p>我是: [ {personality.name} ]</p>
-              <p>BUG协议: {personality.coreProtocol}</p>
-            </div>
-
-            <div className="flex gap-2 pt-2">
-              <button
-                onClick={handleCopyShareText}
-                className="flex-1 py-3 bg-neon-cyan text-black font-mono font-bold text-xs cursor-pointer text-center flex items-center justify-center gap-1.5"
-                style={{ borderRadius: '0px' }}
-              >
-                {copied ? (
-                  <>
-                    <CheckCircle className="w-3.5 h-3.5 text-black" />
-                    <span>[ COPIED_SUCCESS ]</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-3.5 h-3.5 text-black" />
-                    <span>[ COPY_CLIPBOARD ]</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Fixed bottom navigation mini indicator bar representing screenshot 3's bottom footer tabs */}
-      <div className="fixed bottom-0 inset-x-0 bg-cosmic-bg/95 border-t border-gray-800/80 p-2.5 z-40 flex justify-around items-center text-[10px] font-mono text-gray-500 backdrop-blur-md">
-        <div className="flex flex-col items-center cursor-pointer text-neon-cyan">
-          <Terminal className="w-4 h-4 mb-0.5 text-neon-cyan" />
-          <span>DECODE</span>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer text-neon-purple font-bold">
-          <Cpu className="w-4 h-4 mb-0.5 text-neon-purple animate-pulse" />
-          <span>ANOMALY</span>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer text-gray-600 hover:text-gray-300">
-          <AlertOctagon className="w-4 h-4 mb-0.5" />
-          <span>VULNERABILITY</span>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer text-gray-600 hover:text-gray-300">
-          <HelpCircle className="w-4 h-4 mb-0.5" />
-          <span>LOG</span>
-        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Terminal, ShieldAlert } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -7,23 +7,30 @@ interface StartScreenProps {
 }
 
 export default function StartScreen({ onStart }: StartScreenProps) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleStart = () => {
+    setShowPopup(true);
+    setTimeout(() => {
+      onStart();
+    }, 1200);
+  };
+
   return (
     <div className="w-full min-h-screen flex flex-col justify-between p-6 md:p-10 bg-cosmic-bg relative overflow-hidden crt-scanlines">
-      {/* Decorative Matrix Background Ambient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(176,38,255,0.12),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(67,218,226,0.08),transparent_70%)] pointer-events-none" />
       
-      {/* Top Header Bar */}
       <div className="w-full flex items-center justify-between border-b border-purple-900/40 pb-4 z-10" id="top-nav-bar">
         <div className="flex items-center gap-2">
           <Terminal className="w-5 h-5 text-neon-cyan animate-pulse" />
-          <span className="font-mono text-xs text-neon-cyan tracking-wider uppercase">
-            SYSTEM_STATUS: ANOMALY_DETECTED
+          <span className="font-mono text-xs text-neon-cyan tracking-wider">
+            系统状态：异常已检测
           </span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-ping" />
-          <span className="font-mono text-[10px] text-outline text-gray-400">CORE_SYNC_OK</span>
+          <span className="font-mono text-[10px] text-gray-400">核心同步正常</span>
         </div>
       </div>
 
@@ -56,10 +63,10 @@ export default function StartScreen({ onStart }: StartScreenProps) {
           <span className="block text-xl md:text-2xl text-neon-cyan mb-2 font-semibold">
             草台班子大质检：
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple glitch-shadow-cyan-purple font-black">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple glitch-shadow-cyan-purple font-black animate-glitch-shake">
             你这行乱码究竟卡出了
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-white to-warning-yellow glitch-shadow-yellow-purple font-black mt-2">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-white to-warning-yellow glitch-shadow-yellow-purple font-black mt-2 animate-glitch-shake">
             什么系统异常？
           </span>
         </motion.h1>
@@ -71,7 +78,6 @@ export default function StartScreen({ onStart }: StartScreenProps) {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="w-full glass-container border border-purple-500/20 p-6 md:p-8 relative"
         >
-          {/* Terminal Controls bar (Red, Yellow, Green Dots) */}
           <div className="absolute top-4 left-4 flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-red-500/80" />
             <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
@@ -101,7 +107,7 @@ export default function StartScreen({ onStart }: StartScreenProps) {
       {/* Footer / Trigger Action Button */}
       <div className="w-full max-w-sm mx-auto z-10 flex flex-col items-center gap-4 mt-6">
         <motion.button
-          onClick={onStart}
+          onClick={handleStart}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="w-full py-4 px-6 bg-neon-cyan text-black font-mono font-bold tracking-wider text-sm md:text-base border border-neon-cyan cursor-pointer glow-cyan-btn select-none text-center active:bg-warning-yellow"
@@ -109,10 +115,24 @@ export default function StartScreen({ onStart }: StartScreenProps) {
         >
           [ 接受草台大质检，开始注入乱码 ]
         </motion.button>
-        <span className="font-mono text-[10px] text-gray-500 tracking-wider">
-          COSMIC_OS CORE V2.1 // DECODE_LIMIT: TRUE
-        </span>
       </div>
+
+      {/* Popup Overlay */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="glass-container border border-neon-cyan/40 p-8 text-center space-y-4 max-w-sm mx-4"
+          >
+            <div className="w-12 h-12 mx-auto border-2 border-neon-cyan border-t-transparent rounded-full animate-spin" />
+            <p className="font-mono text-sm text-neon-cyan font-bold tracking-wider">
+              质检通过，正在强行进入漏洞现场...
+            </p>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

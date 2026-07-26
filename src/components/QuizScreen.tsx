@@ -52,12 +52,12 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
           className="flex items-center gap-1.5 text-xs font-mono text-neon-cyan hover:text-warning-yellow cursor-pointer select-none transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>[ RETURN_PREV ]</span>
+          <span>[ 返回 ]</span>
         </button>
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-neon-cyan animate-pulse" />
-          <span className="font-mono text-[11px] text-neon-cyan uppercase tracking-wider">
-            SYSTEM_ANOMALY // DECODING
+          <span className="font-mono text-[11px] text-neon-cyan tracking-wider">
+            系统异常 // 解码中
           </span>
         </div>
       </div>
@@ -76,8 +76,8 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
           />
         </div>
         <div className="flex justify-between items-center mt-2 font-mono text-[10px] text-gray-500">
-          <span>PROGRESS: {currentIndex + 1} / {QUESTIONS.length}</span>
-          <span>SCAN_RATIO: {Math.round(progressPercent)}%</span>
+          <span>进度: {currentIndex + 1} / {QUESTIONS.length}</span>
+          <span>扫描进度: {Math.round(progressPercent)}%</span>
         </div>
       </div>
 
@@ -96,15 +96,12 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
             <div className="flex">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-950/40 border border-neon-purple/40 text-neon-purple font-mono text-[10px] uppercase font-bold tracking-widest clip-angular-badge">
                 <Cpu className="w-3.5 h-3.5 text-neon-purple animate-pulse" />
-                CRITICAL_INTERRUPT // EXCEPTION_{String(currentIndex + 1).padStart(2, '0')}
+                异常中断 // 异常_{String(currentIndex + 1).padStart(2, '0')}
               </span>
             </div>
 
             {/* Question Card */}
             <div className="glass-container border border-purple-500/10 p-5 md:p-6 relative">
-              <div className="font-mono text-[10px] text-gray-500 mb-2 uppercase tracking-wide">
-                LOCAL_SIMULATION_LOG:
-              </div>
               <h2 className="text-lg md:text-xl font-bold leading-snug font-sans text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-100 to-neon-cyan drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 {String(currentIndex + 1).padStart(2, '0')}. {currentQuestion.title}
               </h2>
@@ -157,12 +154,6 @@ export default function QuizScreen({ onFinish, onBackToHome }: QuizScreenProps) 
 
       {/* Bottom Technical Status Footers */}
       <div className="w-full max-w-lg mx-auto z-10 border-t border-gray-800/60 pt-4 flex flex-col gap-3">
-        {/* Terminal Line */}
-        <div className="flex justify-between items-center text-[10px] font-mono text-gray-500 tracking-wider">
-          <span>LATENCY: 14MS</span>
-          <span>BUFFER: OPTIMAL</span>
-          <span>SESSION ID: XA-9921-Ω</span>
-        </div>
 
         {/* Warning Toast Panel */}
         <div className="glass-container border border-red-950/30 bg-red-950/10 p-3 flex items-center gap-2">
