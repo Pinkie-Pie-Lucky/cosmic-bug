@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
-import AuthScreen from './components/AuthScreen';
+// import AuthScreen from './components/AuthScreen';
 import StartScreen from './components/StartScreen';
 import QuizScreen from './components/QuizScreen';
 import ResultDashboard from './components/ResultDashboard';
 import { calculateResult } from './data/quizData';
 
-type ScreenState = 'auth' | 'home' | 'quiz' | 'result';
+type ScreenState = 'home' | 'quiz' | 'result';
 
 export default function App() {
-  const [isAuthorized, setIsAuthorized] = useState(() => {
-    // TODO: 测试阶段暂时注释，上线前恢复
-    // return !!localStorage.getItem('has_access_auth');
-    return false;
-  });
-  const [screen, setScreen] = useState<ScreenState>('auth');
+  // 授权码入口暂时禁用：启动后直接进入主页。
+  const [screen, setScreen] = useState<ScreenState>('home');
   const [answers, setAnswers] = useState<('A' | 'B' | 'C' | 'D')[]>([]);
   const [result, setResult] = useState<ReturnType<typeof calculateResult> | null>(null);
 
-  const handleAuthSuccess = () => {
-    setIsAuthorized(true);
-    setScreen('home');
-  };
+  // const handleAuthSuccess = () => setScreen('home');
 
   const handleStartQuiz = () => {
     setAnswers([]);
@@ -43,9 +36,9 @@ export default function App() {
 
   return (
     <div className="min-h-dvh bg-cosmic-bg text-gray-100 select-none">
-      {screen === 'auth' && (
-        <AuthScreen onAuthSuccess={handleAuthSuccess} />
-      )}
+      {/* 授权码校验暂时禁用。
+      {screen === 'auth' && <AuthScreen onAuthSuccess={handleAuthSuccess} />}
+      */}
 
       {screen === 'home' && (
         <StartScreen onStart={handleStartQuiz} />
